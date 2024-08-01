@@ -90,7 +90,7 @@ const AppView = () => {
             memory={pro1?.memory}
             proId={pro1?.pid}
             color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+            icon={<img alt="icon" src="/public/assets/images/process/analysing_8649259.png" />}
           />
         </Grid>
 
@@ -101,7 +101,7 @@ const AppView = () => {
             memory={pro2?.memory}
             proId={pro2?.pid}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/public/assets/images/process/iteration_16090683.png" />}
           />
         </Grid>
 
@@ -112,7 +112,7 @@ const AppView = () => {
             memory={pro3?.memory}
             proId={pro3?.pid}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            icon={<img alt="icon" src="/public/assets/images/process/project-plan_8980777.png" />}
           />
         </Grid>
 
@@ -123,7 +123,7 @@ const AppView = () => {
             memory={pro4?.memory}
             proId={pro4?.pid}
             color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            icon={<img alt="icon" src="/public/assets/images/process/work-process_3281345.png" />}
           />
         </Grid>
 
