@@ -24,7 +24,6 @@ const generateChartData = (labelCount) => {
     { name: 'Network Activity', data: [] },
     { name: 'IO Wait', data: [] },
     { name: 'Swap Usage', data: [] },
-    { name: 'Page Faults', data: [] },
   ];
 
   for (let i = 0; i < labelCount; i += 1) {
