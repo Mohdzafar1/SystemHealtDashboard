@@ -34,12 +34,12 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      {/* <Searchbar /> */}
+   
 
       <Box sx={{ flexGrow: 1 }} />
 
       <Stack direction="row" alignItems="center" spacing={1}>
-        {/* <LanguagePopover /> */}
+      
         <NotificationsPopover />
         <AccountPopover />
       </Stack>
