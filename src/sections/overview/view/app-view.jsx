@@ -1,5 +1,4 @@
-
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -9,7 +8,6 @@ import AppCurrentVisits from '../app-current-visits';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
 
-
 const generateRandomData = (name) => ({
   name,
   pid: Math.floor(Math.random() * 10000),
@@ -17,11 +15,53 @@ const generateRandomData = (name) => ({
   memory: `${Math.floor(Math.random() * 1000)}MB`
 });
 
-const  AppView=()=> {
+const generateChartData = (labelCount) => {
+  const labels = [];
+  const series = [
+    { name: 'CPU Usage', data: [] },
+    { name: 'Memory Usage', data: [] },
+    { name: 'Disk Usage', data: [] },
+    { name: 'Network Activity', data: [] },
+    { name: 'IO Wait', data: [] },
+    { name: 'Swap Usage', data: [] },
+    { name: 'Page Faults', data: [] },
+  ];
+
+  for (let i = 0; i < labelCount; i += 1) {
+    labels.push(`Day ${i + 1}`);
+    series.forEach(serie => {
+      serie.data.push(Math.floor(Math.random() * 100));
+    });
+  }
+
+  return { labels, series };
+};
+
+const generatePieChartData = () => {
+  const values = [
+    Math.floor(Math.random() * 100),
+    Math.floor(Math.random() * 100),
+    Math.floor(Math.random() * 100),
+    Math.floor(Math.random() * 100),
+  ];
+  const total = values.reduce((acc, value) => acc + value, 0);
+  const percentages = values.map(value => Math.round((value / total) * 100));
+
+  return [
+    { label: 'Blocked by Firewall', value: percentages[0] },
+    { label: 'Blocked by Antivirus', value: percentages[1] },
+    { label: 'Blocked by Policy', value: percentages[2] },
+    { label: 'Others', value: percentages[3] },
+  ];
+};
+
+const AppView = () => {
   const [pro1, setPro1] = useState(generateRandomData('Process 1'));
   const [pro2, setPro2] = useState(generateRandomData('Process 2'));
   const [pro3, setPro3] = useState(generateRandomData('Process 3'));
   const [pro4, setPro4] = useState(generateRandomData('Process 4'));
+  const [chartData, setChartData] = useState(generateChartData(10)); // Initial data with 10 labels
+  const [pieChartData, setPieChartData] = useState(generatePieChartData());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,6 +69,8 @@ const  AppView=()=> {
       setPro2(generateRandomData('Process 2'));
       setPro3(generateRandomData('Process 3'));
       setPro4(generateRandomData('Process 4'));
+      setChartData(generateChartData(10)); // Update chart data every 5 seconds
+      setPieChartData(generatePieChartData()); // Update pie chart data every 5 seconds
     }, 5000); // Update every 5 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
@@ -65,7 +107,7 @@ const  AppView=()=> {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-          title={pro3?.name}
+            title={pro3?.name}
             total={pro3?.cpu}
             memory={pro3?.memory}
             proId={pro3?.pid}
@@ -76,7 +118,7 @@ const  AppView=()=> {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-           title={pro4?.name}
+            title={pro4?.name}
             total={pro4?.cpu}
             memory={pro4?.memory}
             proId={pro4?.pid}
@@ -89,92 +131,19 @@ const  AppView=()=> {
           <AppWebsiteVisits
             title="System Health Monitoring"
             subheader="(+43%) than last year"
-            chart={{
-              labels: [
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
-              ],
-              series: [
-      {
-        name: 'CPU Usage',
-        type: 'line',
-        fill: 'solid',
-        data: [65, 59, 80, 81, 56, 55, 40],
-      },
-      {
-        name: 'Memory Usage',
-        type: 'line',
-        fill: 'solid',
-        data: [28, 48, 40, 19, 86, 27, 90],
-      },
-      {
-        name: 'Disk Usage',
-        type: 'line',
-        fill: 'solid',
-        data: [45, 39, 60, 71, 66, 75, 50],
-      },
-      {
-        name: 'Network Activity',
-        type: 'line',
-        fill: 'solid',
-        data: [35, 49, 70, 51, 66, 35, 60],
-      },
-      {
-        name: 'IO Wait',
-        type: 'line',
-        fill: 'solid',
-        data: [20, 30, 45, 50, 40, 35, 60],
-      },
-      {
-        name: 'Swap Usage',
-        type: 'line',
-        fill: 'solid',
-        data: [10, 20, 35, 40, 30, 25, 50],
-      },
-      {
-        name: 'Page Faults',
-        type: 'line',
-        fill: 'solid',
-        data: [15, 25, 35, 45, 55, 65, 75],
-      },
-    ],
-            }}
+            chart={chartData}
           />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
-            title="BlockingPieChart "
-            chart={{
-              series: [
-                { label: 'Blocked by Firewall', value: 40 },
-                { label: 'Blocked by Antivirus', value: 30 },
-                { label: 'Blocked by Policy', value: 20 },
-                { label: 'Others', value:  10},
-              ],
-            }}
+            title="BlockingPieChart"
+            chart={{ series: pieChartData }}
           />
         </Grid>
-
-      
-
-     
-
-       
       </Grid>
     </Container>
   );
 }
 
-export default AppView
-
-
+export default AppView;
