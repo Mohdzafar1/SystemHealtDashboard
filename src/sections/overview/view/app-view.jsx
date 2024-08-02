@@ -89,7 +89,7 @@ const AppView = () => {
             memory={pro1?.memory}
             proId={pro1?.pid}
             color="success"
-            icon={<img alt="icon" src="/public/assets/images/process/analysing_8649259.png" />}
+            icon={<img alt="icon" src={"/public/assets/images/process/analysing_8649259.png"} />}
           />
         </Grid>
 
