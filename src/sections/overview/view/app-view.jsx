@@ -7,6 +7,11 @@ import Typography from '@mui/material/Typography';
 import AppCurrentVisits from '../app-current-visits';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
+import img1 from "../../../../public/assets/images/process/analysing_8649259.png"
+import img2 from "../../../../public/assets/images/process/iteration_16090683.png"
+import img3 from "../../../../public/assets/images/process/project-plan_8980777.png"
+import img4 from "../../../../public/assets/images/process/work-process_3281345.png"
+
 
 const generateRandomData = (name) => ({
   name,
@@ -89,7 +94,7 @@ const AppView = () => {
             memory={pro1?.memory}
             proId={pro1?.pid}
             color="success"
-            icon={<img alt="icon" src={"/public/assets/images/process/analysing_8649259.png"} />}
+            icon={<img alt="icon" src={img1} />}
           />
         </Grid>
 
@@ -100,7 +105,7 @@ const AppView = () => {
             memory={pro2?.memory}
             proId={pro2?.pid}
             color="info"
-            icon={<img alt="icon" src="/public/assets/images/process/iteration_16090683.png" />}
+            icon={<img alt="icon" src={img2}  />}
           />
         </Grid>
 
@@ -111,7 +116,7 @@ const AppView = () => {
             memory={pro3?.memory}
             proId={pro3?.pid}
             color="warning"
-            icon={<img alt="icon" src="/public/assets/images/process/project-plan_8980777.png" />}
+            icon={<img alt="icon" src={img3}  />}
           />
         </Grid>
 
@@ -122,7 +127,7 @@ const AppView = () => {
             memory={pro4?.memory}
             proId={pro4?.pid}
             color="error"
-            icon={<img alt="icon" src="/public/assets/images/process/work-process_3281345.png" />}
+            icon={<img alt="icon" src={img4} />}
           />
         </Grid>
 
