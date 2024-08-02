@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { set, sub } from 'date-fns';
 import { faker } from '@faker-js/faker';
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -21,10 +21,6 @@ import { fToNow } from 'src/utils/format-time';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
-
-import notification_tone from '../../../../public/assets/audio/notification_tone.wav';
-
-// ----------------------------------------------------------------------
 
 const generateDummyThreatNotifications = () => [
   {
@@ -90,20 +86,6 @@ export default function NotificationsPopover() {
       }))
     );
   };
-
-  useEffect(() => {
-    if (totalUnRead > 0) {
-      const notificationSound = new Audio(notification_tone);
-      notificationSound.play().catch((error) => {
-        console.error('Failed to play the notification sound:', error);
-      });
-
-      setTimeout(() => {
-        notificationSound.pause();
-        notificationSound.currentTime = 0;
-      }, 3000);
-    }
-  }, [totalUnRead]);
 
   useEffect(() => {
     const timer = setInterval(() => {
