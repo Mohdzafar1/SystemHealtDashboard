@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { set, sub } from 'date-fns';
 import { faker } from '@faker-js/faker';
-import React, { useRef, useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -22,7 +22,8 @@ import { fToNow } from 'src/utils/format-time';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
-import notification_tone from "../../../../public/assets/audio/notification_tone.wav"
+import notification_tone from '../../../../public/assets/audio/notification_tone.wav';
+
 // ----------------------------------------------------------------------
 
 const generateDummyThreatNotifications = () => [
@@ -66,16 +67,12 @@ const generateDummyThreatNotifications = () => [
 
 const THREAT_NOTIFICATIONS = generateDummyThreatNotifications();
 
-// Array of different notification sounds
-const notificationSounds = [
-  notification_tone
-];
-
 export default function NotificationsPopover() {
   const [notifications, setNotifications] = useState(THREAT_NOTIFICATIONS);
   const totalUnRead = notifications.filter((item) => item.isUnRead).length;
   const [open, setOpen] = useState(null);
-  const prevNotificationsRef = useRef(notifications);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [lastResetTime, setLastResetTime] = useState(new Date());
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -95,15 +92,8 @@ export default function NotificationsPopover() {
   };
 
   useEffect(() => {
-    const prevNotifications = prevNotificationsRef.current;
-
-    // Find new unread notifications
-    const newNotifications = notifications.filter((notification) =>
-      notification.isUnRead && !prevNotifications.find((prev) => prev.id === notification.id)
-    );
-
-    if (newNotifications.length > 0) {
-      const notificationSound = new Audio(notificationSounds[0]); // Play default sound
+    if (totalUnRead > 0) {
+      const notificationSound = new Audio(notification_tone);
       notificationSound.play().catch((error) => {
         console.error('Failed to play the notification sound:', error);
       });
@@ -111,30 +101,36 @@ export default function NotificationsPopover() {
       setTimeout(() => {
         notificationSound.pause();
         notificationSound.currentTime = 0;
-      }, 3000); // Adjust the duration (3000 ms = 3 seconds) as needed
+      }, 3000);
     }
-
-    // Update the ref with current notifications
-    prevNotificationsRef.current = notifications;
-  }, [notifications]);
+  }, [totalUnRead]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const newNotification = {
-        id: faker.string.uuid(),
-        title: 'New Threat Detected',
-        description: 'New threat detected on your system',
-        avatar: '/assets/icons/ic_notification_warning.svg',
-        type: 'new_threat',
-        createdAt: new Date(),
-        isUnRead: true,
-      };
+      const currentTime = new Date();
+      const elapsedTime = (currentTime - lastResetTime) / 1000 / 60; // in minutes
 
-      setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+      if (elapsedTime >= 10) {
+        setNotificationCount(0);
+        setLastResetTime(currentTime);
+      } else if (notificationCount < 8) {
+        const newNotification = {
+          id: faker.string.uuid(),
+          title: 'New Threat Detected',
+          description: 'New threat detected on your system',
+          avatar: '/assets/icons/ic_notification_warning.svg',
+          type: 'new_threat',
+          createdAt: new Date(),
+          isUnRead: true,
+        };
+
+        setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+        setNotificationCount(notificationCount + 1);
+      }
     }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [notificationCount, lastResetTime]);
 
   return (
     <>
