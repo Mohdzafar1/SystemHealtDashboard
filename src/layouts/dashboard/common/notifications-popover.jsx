@@ -22,6 +22,7 @@ import { fToNow } from 'src/utils/format-time';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
+import notification_tone from "../../../../public/assets/audio/notification_tone.wav"
 // ----------------------------------------------------------------------
 
 const generateDummyThreatNotifications = () => [
@@ -67,7 +68,7 @@ const THREAT_NOTIFICATIONS = generateDummyThreatNotifications();
 
 // Array of different notification sounds
 const notificationSounds = [
-  '/public/assets/audio/notification_tone.wav', // Default sound
+  notification_tone
 ];
 
 export default function NotificationsPopover() {
