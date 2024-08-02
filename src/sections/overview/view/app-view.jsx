@@ -4,15 +4,13 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import AppCurrentVisits from '../app-current-visits';
-import AppWebsiteVisits from '../app-website-visits';
-import AppWidgetSummary from '../app-widget-summary';
-import img1 from "../../../../public/assets/images/process/analysing_8649259.png"
-import img2 from "../../../../public/assets/images/process/iteration_16090683.png"
-import img3 from "../../../../public/assets/images/process/project-plan_8980777.png"
-import img4 from "../../../../public/assets/images/process/work-process_3281345.png"
-
-
+import ProcessCard from '../ProcessCard';
+import PieChartComponent from '../PieChartComponent';
+import LineChartComponent from '../LineChartComponent';
+import img1 from "../../../../public/assets/images/process/analysing_8649259.png";
+import img2 from "../../../../public/assets/images/process/iteration_16090683.png";
+import img3 from "../../../../public/assets/images/process/project-plan_8980777.png";
+import img4 from "../../../../public/assets/images/process/work-process_3281345.png";
 
 const generateRandomData = (name) => ({
   name,
@@ -84,12 +82,12 @@ const AppView = () => {
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Welcome back 👋
+      Analytical Dashboard, For System Monitoring 👋
       </Typography>
 
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
+          <ProcessCard
             title={pro1?.name}
             total={pro1?.cpu}
             memory={pro1?.memory}
@@ -100,7 +98,7 @@ const AppView = () => {
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
+          <ProcessCard
             title={pro2?.name}
             total={pro2?.cpu}
             memory={pro2?.memory}
@@ -111,7 +109,7 @@ const AppView = () => {
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
+          <ProcessCard
             title={pro3?.name}
             total={pro3?.cpu}
             memory={pro3?.memory}
@@ -122,7 +120,7 @@ const AppView = () => {
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
+          <ProcessCard
             title={pro4?.name}
             total={pro4?.cpu}
             memory={pro4?.memory}
@@ -133,7 +131,7 @@ const AppView = () => {
         </Grid>
 
         <Grid xs={12} md={6} lg={8}>
-          <AppWebsiteVisits
+          <LineChartComponent
             title="System Health Monitoring"
             subheader="(+43%) than last year"
             chart={chartData}
@@ -141,7 +139,7 @@ const AppView = () => {
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
-          <AppCurrentVisits
+          <PieChartComponent
             title="BlockingPieChart"
             chart={{ series: pieChartData }}
           />

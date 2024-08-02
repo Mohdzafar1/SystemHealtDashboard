@@ -49,7 +49,7 @@ export default function ProcessTask({ title, total,proId,memory, icon, color = '
   );
 }
 
-AppWidgetSummary.propTypes = {
+ProcessTask.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   sx: PropTypes.object,

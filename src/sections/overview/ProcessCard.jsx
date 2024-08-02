@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 // ----------------------------------------------------------------------
 
-export default function AppWidgetSummary({ title, total,proId,memory, icon, color = 'primary', sx, ...other }) {
+export default function ProcessCard({ title, total,proId,memory, icon, color = 'primary', sx, ...other }) {
   return (
     <Card
       component={Stack}
@@ -49,7 +49,7 @@ export default function AppWidgetSummary({ title, total,proId,memory, icon, colo
   );
 }
 
-AppWidgetSummary.propTypes = {
+ProcessCard.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   sx: PropTypes.object,
